@@ -1,0 +1,21 @@
+body{
+    background-color: blanchedalmond 
+}
+
+h1{
+   text-align:center;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+   letter-spacing: 3px;
+   font-size: 100px
+  
+}
+#movie-form{
+    font-size: 100px;
+  align-self: auto;
+  margin-left: 450px
+}
+
+#movie-view{
+    color: aqua;
+}
+

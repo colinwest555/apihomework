@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en"> 
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title> gif api search</title>
+</head>
+<body>
+        <div class="container">
+                <h1>lets meme it up</h1>
+            
+                <!-- Rendered Buttons will get Dumped Here  -->
+                <div id="buttons-view"></div>
+                
+                <form id="movie-form">
+                  <label for="movie-input">get gifs</label>
+                  <input type="text" id="movie-input"><br>
+            
+                  <!-- Button triggers new movie to be added -->
+                  <input id="add-movie" type="submit" value="add button">
+                </form>
+            
+                <!-- Movies will Get Dumped Here -->
+                <div id="movies-view"></div>
+                <div id="gifs-appear-here">
+                  </div>
+            
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script type="text/javascript">
+    $(document).on("click", ".movie-btn", function() {
+      var person = $(this).attr("data-person");
+      var queryURL = "https://api.giphy.com/v1/gifs/search?q=" +
+        person + "&api_key=dc6zaTOxFJmzC&limit=10";
+    
+
+    
+    $.ajax({
+       
+        url: queryURL,
+        method: "GET"
+      })
+        .then(function(response) {
+          var results = response.data;
+
+          for (var i = 0; i < results.length; i++) {
+            var gifDiv = $("<div>");
+             var personImage = $("<img>");
+            personImage.attr("src", results[i].images.fixed_height.url);
+
+          
+            gifDiv.prepend(personImage);
+
+            $("#gifs-appear-here").prepend(gifDiv);
+          }
+
+          
+        });
+    });
+    var movies= [""]
+        
+        $("#add-movie").on("click", function(event) {
+        event.preventDefault();
+
+        
+        var movie = $("#movie-input").val().trim();
+
+        
+        movies.push(movie);
+        
+
+        
+        renderButtons();
+      });
+    
+      var renderButtons = function(){
+        var buttonsView = $('#buttons-view')
+       buttonsView.empty()
+       movies.forEach(function(movieName) {
+         
+        var newButton=$('<button>')
+        newButton.text(movieName)
+        newButton.attr('data-person', movieName)
+        newButton.addClass('movie-btn')
+        
+        buttonsView.append(newButton)
+       });
+       $(".gif").on("click", function() {
+      
+        $(".gif").on("click", function() {
+          var state = $(this).attr("data-state");
+       console.log(this)
+      if (state === "still") {
+        $(this).attr("src", $(this).attr("data-animate"));
+        $(this).attr("data-state", "animate");
+      } else {
+        $(this).attr("src", $(this).attr("data-still"));
+        $(this).attr("data-state", "still");
+      }
+          })
+    });
+
+      }
+  
+</script>
+</body>
+</html>
